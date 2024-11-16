@@ -135,6 +135,22 @@ class Beam(object):
                 self.elts.pop()
                 self.scores.pop()
 
+class EarlyStopping:
+    def __init__(self, patience=5, min_delta=0):
+        self.patience = patience
+        self.min_delta = min_delta
+        self.best_score = None
+        self.epochs_without_improvement = 0
+
+    def should_stop(self, current_score):
+        if self.best_score is None or current_score > self.best_score + self.min_delta:
+            self.best_score = current_score
+            self.epochs_without_improvement = 0
+        else:
+            self.epochs_without_improvement += 1
+
+        return self.epochs_without_improvement >= self.patience 
+
     def get_elts(self):
         return self.elts
 

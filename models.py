@@ -82,6 +82,23 @@ class RNNClassifier(ConsonantVowelClassifier,nn.Module):
             output = self.forward(input_sequence)
             return torch.argmax(output, dim=1).item()
 
+# class RNNClassifier(nn.Module):
+#     def __init__(self, vocab_size, embed_size, hidden_size, num_classes, dropout_prob=0.5):
+#         super(RNNClassifier, self).__init__()
+#         self.embedding = nn.Embedding(vocab_size, embed_size)
+#         self.rnn = nn.LSTM(embed_size, hidden_size, batch_first=True)
+#         self.dropout = nn.Dropout(dropout_prob)
+#         self.fc = nn.Linear(hidden_size, num_classes)
+#         self.softmax = nn.Softmax(dim=1)
+
+#     def forward(self, x):
+#         x = self.embedding(x)
+#         _, (h, _) = self.rnn(x)
+#         h = h.squeeze(0)
+#         h = self.dropout(h)  # Apply dropout
+#         out = self.fc(h)
+#         return self.softmax(out)
+
 def train_rnn_classifier(args, train_cons_exs, train_vowel_exs, dev_cons_exs, dev_vowel_exs, vocab_index):
     """
     :param args: command-line args, passed through here for your convenience
@@ -93,7 +110,7 @@ def train_rnn_classifier(args, train_cons_exs, train_vowel_exs, dev_cons_exs, de
     :return: an RNNClassifier instance trained on the given data
     """
     # parameters
-    embedding_size = 10
+    embedding_size = 20
     hidden_size = 10
     layers = 1
 
