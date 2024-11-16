@@ -110,7 +110,7 @@ def train_rnn_classifier(args, train_cons_exs, train_vowel_exs, dev_cons_exs, de
     :return: an RNNClassifier instance trained on the given data
     """
     # parameters
-    embedding_size = 20
+    embedding_size = 10
     hidden_size = 10
     layers = 1
 
